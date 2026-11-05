@@ -45,6 +45,7 @@
 
 * git push origin <branchname>
 
-
+* git push origin --delete <branchname>
 
 ```
+
