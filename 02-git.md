@@ -4,7 +4,7 @@
 
 
 * blame:
-    I* git blame is used to show the last modification of each line in a file, along with the author and commit information. It helps to identify who made changes to specific lines of code and when those changes were made. This can be useful for tracking down bugs, understanding the history of a file, and collaborating with other developers.
+    * git blame is used to show the last modification of each line in a file, along with the author and commit information. It helps to identify who made changes to specific lines of code and when those changes were made. This can be useful for tracking down bugs, understanding the history of a file, and collaborating with other developers.
 
 ```
 git blame <filename>
