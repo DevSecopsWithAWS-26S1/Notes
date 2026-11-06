@@ -3,54 +3,118 @@
 ```
 
 
+To initialize a new git repository in the current directory
+-----------------------------------------------------------
 * git init . 
 
+To move all new and modified files from working tree to staging area
+--------------------------------------------------------------------
 * git add .
+
+To add particular file to staging area
+---------------------------------------
 * git add <filename>
+
+
+To add all changes to staging area
+----------------------------------
 * git add  -A 
 
+
+To save staged changes in local repo
+------------------------------------
 * git commit -m "<commit message>"
 
+
+To remove specified file from staging area
+--------------------------------------------
 * git reset <filename>
+
+To remove changes on working tree after we do reset
+---------------------------------------------------
 * git checkout filename
+
+To remove changes from staging area and working tree 
+-----------------------------------------------------
 * git reset --hard 
 
+
+To create a new commit that reverses the changes introduced by earlier commit
+-----------------------------------------------------------------------------
 * git revert <commitid>
 
+To display complete commit history
+---------------------------------
 * git log 
 
-* git log --oneline 
+To display commit history in a short, single line format
+---------------------------------------------------------
 
-* git branch 
+* git log --oneline
 
+To list all local branches
+--------------------------
+
+* git branch
+
+To list all remote branches
+---------------------------
 * git branch -r 
 
+To list all local and remote branches
+-------------------------------------
 * git branch -a 
 
+To create new branch
+---------------------
 * git branch <branchname>
 
+
+To switch from current branch to other existing branch
+------------------------------------------------------
 * git checkout <branchname>
 
+
+To create new branch and immediately switches to it
+----------------------------------------------------
 * git checkout -b <branchname>
 
+To config git username globally
+-------------------------------
 * git config --global user.name "<username>"
 
+To config git email globally
+----------------------------
 * git config --global user.email "<Useremail>"
 
+To show which remote repo connected to local repo
+-------------------------------------------------
 * git remote -v 
 
+To show remote config in local repo
+------------------------------------
 * git config --list 
 
+To connect local repo to remote repo
+------------------------------------
 * git remote add origin <repourl>
 
+To connect to already existed configured remote repo
+----------------------------------------------------
 * git remote set-url origin <repourl>
 
+To push local commits to remote repo
+------------------------------------
 * git push origin <branchname>
 
 
+To delete local branch 
+-----------------------
 * git branch -d <branchname>
 * git branch --delete <branchname>
 
+To delete remote branch
+------------------------
 * git push origin --delete <branchname>
 
 ```
