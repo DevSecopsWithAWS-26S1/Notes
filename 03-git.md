@@ -31,3 +31,8 @@
 
 * git tag <tagname> : This command creates a new tag with the specified name. By default, it creates a lightweight tag that points to the current commit.
 
+
+### Task :
+* In your own organization , try to protect the master branch.
+* list down all rules that you feel are important to protect the master branch.
+* Simulate the direct push rejection to the master branch.
