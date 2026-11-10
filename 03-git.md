@@ -1,38 +1,53 @@
-## scenarios: 
-* fastforward merge
-* rebase    
-* cherry-pick
+# Branching scenarios
 
+Use these commands to try a merge, a rebase, and a cherry-pick:
 
-*  fastforward merge :
-    ```
-    git merge --no-ff <branchname>
-    ```
-* rebase:
+## Fast-forward merge
 
-    ```
-    git rebase <branchname>
-    ```
-* cherry-pick:
-    ```
-    git cherry-pick <commit_hash>
-    ```
+A regular merge can fast-forward when the target branch has not advanced independently:
 
-## Branching startegy :
-* It depends on the team and project requirements. Some common branching strategies include:
-    * Git Flow: A branching model that defines a strict branching structure with specific branches for features, releases, and hotfixes. It provides a clear workflow for managing development and release cycles.
+```sh
+git merge <branchname>
+```
 
-* Sprint :  
-    * sprint is the time for the feature development and testing. It is a time-boxed period during which a specific set of work is completed and made ready for review. Sprints are commonly used in agile software development methodologies, such as Scrum, to organize and manage the development process.
-    * Weekly / Bi-weekly / Monthly sprints are common, depending on the team's workflow and project requirements. The duration of a sprint is typically determined by the team and can vary based on factors such as project complexity, team size, and development goals.
+Use `--no-ff` only when you want a merge commit even though a fast-forward is available:
 
-## tagging in git :
-* Tagging is a way to mark specific points in a Git repository's history. It is used for creating release versions, marking important milestones, or identifying specific commits. Tags are often used to indicate stable versions of the codebase that can be referenced later.
+```sh
+git merge --no-ff <branchname>
+```
 
-* git tag <tagname> : This command creates a new tag with the specified name. By default, it creates a lightweight tag that points to the current commit.
+## Rebase
 
+Move the current branch's commits onto the selected branch:
 
-### Task :
-* In your own organization , try to protect the master branch.
-* list down all rules that you feel are important to protect the master branch.
-* Simulate the direct push rejection to the master branch.
+```sh
+git rebase <branchname>
+```
+
+## Cherry-pick
+
+Apply one commit to the current branch:
+
+```sh
+git cherry-pick <commit_hash>
+```
+
+## Branching strategy
+
+The right strategy depends on the team and the project. Git Flow is a structured option, with distinct branches for features, releases, and urgent fixes.
+
+### Sprints
+
+A sprint is a time-boxed development and testing period with a defined set of work. Teams often plan weekly, bi-weekly, or monthly sprints based on the scope and their working cadence.
+
+## Tags
+
+Tags label particular points in repository history, such as a release or milestone. Create a lightweight tag at the current commit with:
+
+```sh
+git tag <tagname>
+```
+
+## Task
+
+In your organization, turn on branch protection for `master`, decide which rules are appropriate, and verify that a direct push is rejected.
