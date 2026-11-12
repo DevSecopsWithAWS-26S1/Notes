@@ -31,7 +31,7 @@
 
 ### Linux os operating system :
 
-![preview](./images/basics1.png)
+![preview](./Images/basics1.png)
 
 1. User Management 
 2. Package Management
@@ -50,11 +50,11 @@
 
 * In AWS - while creating keypair with .pem , the private key is downloaded to your local  
 
-![preview](./images/basics2.png)
+![preview](./Images/basics2.png)
 
 
 ## Private ip and private ip address :
 * Private ip address - Internal purpose we use private ip address. it is not reachable from outside the network.
 * Public ip address - External purpose we use public ip address. it is reachable from outside the network. (internet)
 
-![preview](./images/basics3.png)
+![preview](./Images/basics3.png)
