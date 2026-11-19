@@ -91,5 +91,12 @@
     krishna  ALL=(ALL)       NOPASWD: ALL
     ```
  
+* System user :
+
+```
+sudo adduser -r -M -s /sbin/nologin <username>
+
+```
+
 
 
