@@ -1,60 +1,54 @@
-### Virtual machines / Virtual server / server :
-* Imagine yur laptop -  RAM / CPU /Harddisk  - Physical machine 
-* virtual machine is something which is not available with out , you can access via network or internet.
+# Servers and operating systems
 
-### Where these servers are created? :
-* on-premise - vmsphere / vmware / hyper-v / kvm
-* cloud - AWS / Azure / GCP
+## Virtual machines
 
+A physical machine provides CPU, memory, storage, and network resources directly. A virtual machine (VM) is software that uses resources allocated by a physical host.
 
-* onpremise initial cost is too high . maintaining cost is also high. requires teams to manage and configure the servers.
-* Onpremise is prefarable while you have at long time own application  
+VMs are commonly created with:
 
-* cloud initial cost is low. maintaining cost is also low. requires less teams to manage and configure the servers.
+- **On-premises:** VMware vSphere, Hyper-V, or KVM
+- **Cloud:** Amazon EC2, Azure Virtual Machines, or Google Compute Engine
 
+On-premises infrastructure has higher setup and maintenance costs because the organization owns and operates the hardware. Cloud infrastructure has lower upfront cost and is managed through a pay-as-you-use model.
 
-## Operating system :
-* windows  in laptop - size of the OS is 20 GB
-* linux in laptop - size of the OS is 2 GB 
+## Operating systems
 
-* GUI - laptop - windows / ubuntu / centos / fedora
-* CLI - Command line interface servers
+Windows and Linux are operating systems. Linux is the kernel, while distributions such as Ubuntu, RHEL, Debian, Fedora, and SUSE add tools and packages.
 
-* Servers - 96 % of the servers are linux CLI based.
+Linux was created by Linus Torvalds in 1991 and is open source.
 
-* EX : ubuntu / centos / fedora / debian / redhat / suse / kali linux
+- A GUI is a graphical interface.
+- A CLI is a command-line interface.
+- Most servers run Linux in CLI mode.
 
-* ```linux``` is a kernal on top of it we have OS - ubuntu / centos / fedora / debian / redhat / suse / kali linux
-
-* linux is developed by ```linus torvalds``` in 1991. it is open source and free to use.
-
-
-### Linux os operating system :
+## Linux system areas
 
 ![preview](./Images/basics1.png)
 
-1. User Management 
-2. Package Management
-3. Service Management
-4. Process Management
-5. Network Management
+1. User management
+2. Package management
+3. Service management
+4. Process management
+5. Network management
 
+## Authentication and authorization
 
-### Authentication and Authorization ;
-* Authentication - process of verifying the identity of a user or system. (username / password)
-* Authorization - what action you can do inside the system. (read / write / execute)
+- **Authentication** verifies identity, for example through a password or SSH key.
+- **Authorization** defines allowed actions, for example read, write, or execute.
 
-## Two ways of authentication of server :
-1. Password based authentication - username / password
-2. Key based authentication - public key / private key
+Server authentication can use:
 
-* In AWS - while creating keypair with .pem , the private key is downloaded to your local  
+1. Password-based authentication
+2. Key-based authentication
+
+For AWS EC2 key pairs, the private key (`.pem`) is downloaded to the local machine. Keep it secure and do not share it.
 
 ![preview](./Images/basics2.png)
 
 
-## Private ip and private ip address :
-* Private ip address - Internal purpose we use private ip address. it is not reachable from outside the network.
-* Public ip address - External purpose we use public ip address. it is reachable from outside the network. (internet)
+## Private and public IP addresses
+
+- A **private IP** identifies a server inside a private network and is not directly reachable from the internet.
+- A **public IP** is used for internet-facing communication.
 
 ![preview](./Images/basics3.png)

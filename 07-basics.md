@@ -1,32 +1,40 @@
-## CRUD Operations
-* Create , Read , Update , Delete 
+## CRUD operations
 
-* touch <filename> - Create a new file
-* mkdir <directoryname> - Create a new directory
-* cat <filename> - Read the contents of a file
-* rm <filename> - Delete a file
-* rm -f <filename> - Force delete a file
-* rm -rf <directoryname> - Force delete a directory and its contents
+CRUD means Create, Read, Update, and Delete.
 
-* source & destination 
-* where to which 
-* cp training.txt ./folder1/  - Copy a file to a different directory
-* mv training.txt ./folder1/  - Move a file to a different directory
+| Operation | Command |
+|---|---|
+| Create a file | `touch <filename>` |
+| Create a directory | `mkdir <directory>` |
+| Read a file | `cat <filename>` |
+| Delete a file | `rm <filename>` |
+| Force-delete a file | `rm -f <filename>` |
+| Delete a directory recursively | `rm -rf <directory>` |
+
+## Copy and move files
+
+The general pattern is: copy or move the source to the destination.
+
+```sh
+cp training.txt ./folder1/  # Copy
+mv training.txt ./folder1/  # Move
+```
 
 
-### update a file
-* vi editor is for updating the file content
+### Edit a file
 
-* shift + G  - Go to the end of the file
-* gg - Go to the beginning of the fil
+Use `vi` or `vim` to update file content.
+
+* `Shift+G` - Go to the end of the file
+* `gg` - Go to the beginning of the file
 
 
-#### : mode 
-* :/ - search from top of the file 
-* if there are multiple matches , use ```n``` to go to next match and N to go to previous match
+#### Command mode
 
-* :? - search from bottom of the file 
-* if there are multiple matches , use ```n``` to go to next match and N to go to previous match
+* `:/<pattern>` - Search forward
+* `:?<pattern>` - Search backward
+* `n` - Next match
+* `N` - Previous match
 
 * :set nu - Show line numbers in the file   
 * :set nonu - Hide line numbers in the file
@@ -40,32 +48,12 @@
 * :s/<Search>/<Replace>/gc - Search and replace a specific word in the file with confirmation for each replacement
 
 
-#### ESC MODE :
+#### Normal mode
 * Esc + i - Insert mode (to insert text)
 * Esc + u - Undo the last change
 * yy - Copy the current line
 * dd - Delete the current line
 * p - Paste the copied line below the current line
 * 2p - Paste the copied line 2 times below the current line
-* Esc + 1,$d - remove all lines 
-
-
-## Tommorow we will practice the following commands :
-
-* head <filename> - Display the first 10 lines of a file
-* head -n 5 <filename> - Display the first 5 lines of a file
-
-
-* tail <filename> - Display the last 10 lines of a file
-* tail -n 5 <filename> - Display the last 5 lines of a file
-
-* grep <pattern> <filename> - Search for a specific pattern in a file
-* grep -i <pattern> <filename> - Search for a specific pattern in a file (case-insensitive)
-* grep -r <pattern> <directory> - Search for a specific pattern in all files    
-
-
-* wget <url> - Download a file from the internet
-
-
-* cut & awk  - these are used to extract specific columns or fields from a file or output.
+* `Esc + 1,$d` - Delete all lines
 

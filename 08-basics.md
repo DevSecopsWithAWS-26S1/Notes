@@ -1,84 +1,107 @@
-#### Tommorow we will practice the following commands :
+# Linux file and text commands
 
-* head <filename> - Display the first 10 lines of a file
-* head -n 5 <filename> - Display the first 5 lines of a file
+## View file portions
 
-
-* tail <filename> - Display the last 10 lines of a file
-* tail -n 5 <filename> - Display the last 5 lines of a file
-
-* grep <pattern> <filename> - Search for a specific pattern in a file
-* grep -i <pattern> <filename> - Search for a specific pattern in a file (case-insensitive)
-* grep -r <pattern> <directory> - Search for a specific pattern in all files    
-
-
-* wget <url> - Download a file from the internet
-
-
-* cut & awk  - these are used to extract specific columns or fields from a file or output. 
-
+```sh
+head <filename>       # First 10 lines
+head -n 5 <filename>  # First 5 lines
+tail <filename>       # Last 10 lines
+tail -n 5 <filename>  # Last 5 lines
 ```
+
+## Search file content
+
+```sh
+grep "<pattern>" <filename>       # Search
+grep -i "<pattern>" <filename>    # Ignore case
+grep -r "<pattern>" <directory>   # Search recursively
+```
+
+## Download content
+
+```sh
+wget <url>
+curl -O <url>
+```
+
+Use `curl` to print a response in the terminal or `curl -o <file> <url>` to save it.
+
+## Extract fields
+
+`cut` and `awk` extract columns from structured text. For example:
+
+```text
 root:x:0:0:root:/root:/bin/bash
-
-root x 0 0 root /root /bin/bash
-1    2 3 4 5     6      7 
-
 ```
 
-* cut OPTION... [FILE]...
-* cut -d ":" -f 1 <filename>
+The fields are separated by `:`:
 
+```sh
+cut -d ":" -f 1 /etc/passwd
+cut -d ":" -f 1,6 /etc/passwd
 
-* awk -F ":" '{print $1}' passwd 
-* awk -F ":" '{print $NF}' passwd  - Print last value 
-* awk -F ":" '{print $1,$6}' passwd 
-
-* cut -d ":" -f 1,6  passwd | grep "ec2-user"
-*  grep -i "Ec2-user" passwd
-*  grep  "ec2-user" passwd
-
-* shows the HTML page :
-    * curl https://github.com/DevSecopsWithAWS-26S1/ExpenseTracker/blob/main/expense-backend-v2.zip
-
-* download the file 
-    * curl -o /tmp/expense.zip  https://github.com/DevSecopsWithAWS-26S1/ExpenseTracker/blob/main/expense-backend-v2.zip
-    * curl -o /tmp/expense.zip  https://github.com/DevSecopsWithAWS-26S1/ExpenseTracker/blob/main/expense-backend-v2.zip
-
-
-
-### Create a Server in AWS RHEL-9.6.0
-* By default the AWS servers comes with passwordless or key based authntication 
-
-* ssh devops@ipaddres
-* ec2-user
-* ssh -i "tejapem.pem" ec2-user@ipaddress
-* The ec2-user will be root user , but you should use sudo before any command 
-```
-sudo cat /etc/ssh/sshd_config 
+awk -F ":" '{print $1}' /etc/passwd
+awk -F ":" '{print $NF}' /etc/passwd
+awk -F ":" '{print $1, $6}' /etc/passwd
 ```
 
-* switch to root user 
+Combine commands with a pipe (`|`) to filter output:
+
+```sh
+cut -d ":" -f 1,6 /etc/passwd | grep "ec2-user"
+grep -i "ec2-user" /etc/passwd
 ```
-sudo su 
+
+## AWS EC2 server access
+
+AWS EC2 instances normally use key-based authentication. Connect with the default user for the selected AMI:
+
+```sh
+ssh -i "<key.pem>" ec2-user@<public-ip>
 ```
-* Switch along with home directory of root 
+
+Ubuntu images commonly use `ubuntu` as the default login user.
+
+```sh
+ssh -i "<key.pem>" ubuntu@<public-ip>
 ```
-sudo su - 
+
+Use `sudo` for administrative commands:
+
+```sh
+sudo cat /etc/ssh/sshd_config
+sudo su
+sudo su -
 ```
-* /root - it is root directory which belongs to root user 
 
-* ```NOTE``` : It is always a good practice to take a back before changing any configurations 
+`sudo su -` switches to root and loads root's environment. Use it carefully.
 
-* /etc/passwd - This file containers the user detials in your server 
+## Important system files
 
+- `/etc/passwd` contains local user account information.
+- `/root` is the root user's home directory.
+- `/etc/ssh/sshd_config` controls SSH server settings.
 
+Always back up configuration files before editing them:
 
-#### Security groups in AWS :
-* Security groups provide you an option to restrict who can access your server and also to whom your server can access on the ports 
-* Inbound  rules - incoming traffic to the server 
-* Outbound rules - Takes care of outgoing traffic from the server
+```sh
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+```
 
-* SSH - 22 
-* Application - 8080 
+## Security groups
 
-* 0.0.0.0/0 - Open to the world 
+AWS security groups are stateful virtual firewalls.
+
+- **Inbound rules** control traffic entering the instance.
+- **Outbound rules** control traffic leaving the instance.
+
+Common ports:
+
+| Service | Port |
+|---|---:|
+| SSH | 22 |
+| HTTP | 80 |
+| Application server | 8080 |
+| HTTPS | 443 |
+
+`0.0.0.0/0` allows access from every IPv4 address. Use it only when public access is required.

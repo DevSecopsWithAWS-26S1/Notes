@@ -1,102 +1,133 @@
-#### User management:
+# Linux user and group management
 
-* User creation 
-* Password creation to the user 
-* AWS server default comes with keybased . Default user ec2-user
+## Local users
 
-* adduser <username>
-* passwd <username>
+Create a user and set a password:
 
-
-* To make server authentication available with password :
-    1. vi /etc/ssh/sshd_config 
-    2. Shift + G
-    3. Change ```PasswordAuthentication no`` >> ```PasswordAuthentication yes```
-    4. sudo systemctl restart ssh 
-    5. change ```PubkeyAuthentication no``` >> ```PubkeyAuthentication yes```
-    6. There are some default configs in the folder -/etc/ssh/sshd_config.d/ . We renmaed them as .bak and restart the sshd 
-    7. change ```UsePAM no``` >> ```UsePAM yes```  
-        * UsePAM takes acre of user password verification 
-    8. There are some default configs in the folder -/etc/ssh/sshd_config.d/ . We renmaed them as .bak and restart the sshd 
-    9. sudo systemctl restart sshd 
-
-
-
-* Use mobaxterm for better UI and management of servers :
-    ```
-    winget install -e --id Mobatek.MobaXterm
-    ```
-
-* User deletion along with home directory :
-    ```
-    sudo userdel -r username 
-    ```
-
-* Only user deletion , doent delete home directory :
-    ```
-    sudo userdel  username
-    ```
-
-* group creation:
-    ```
-    groupadd <groupname>
-    ```
-* add users to the group 
-    ```
-    sudo usermod -aG <groupname> <username>
-    ```
-* List user groups :
-    ```
-    groups <username>
-    ```
-* Add a primary group to the user 
-    ```
-    sudo usermod -g <groupname> <username>
-
-    ```
-
-* Remove users from the group :
-    ```
-    sudo gpasswd -d <username> <groupname>
-    ```
-* You cant delete a user from all groups , the user should be part of atleat one group 
-
-* List groups :
-    ```
-    getent group
-    cat /etc/group
-    ```
-
-### Scenario : New person joined . you have a provide access to a server 
-1. Ask the user to generate keys on his laptop
-    ```
-    ssh-keygen
-    ```
-2. Ask user to shar the pubkey 
-3. On Server Create a user wihth username, create a folder .ssh , create a file authorized_keys , copy the pubkey and paste in authorized_keys
-    ```
-    adduser krishna
-    mkdir .ssh
-    vi authorized_keys
-    ```
-    
-* How to give root access to a user :
-    ```
-    sudo usermod -aG wheel <username>
-    ```
-* visudo - opens sudoers file 
-    * search for this line ```%wheel  ALL=(ALL)       ALL ```
-    * add this line below to above line 
-    ```
-    krishna  ALL=(ALL)       NOPASWD: ALL
-    ```
- 
-* System user :
-
+```sh
+sudo adduser <username>
+sudo passwd <username>
 ```
+
+Delete a user:
+
+```sh
+sudo userdel <username>
+```
+
+Delete a user and their home directory:
+
+```sh
+sudo userdel -r <username>
+```
+
+## Enable password authentication
+
+Password login is not enabled on every SSH server. If required, review the SSH configuration and snippet files before changing settings:
+
+```sh
+sudo vi /etc/ssh/sshd_config
+sudo ls /etc/ssh/sshd_config.d/
+```
+
+Set these options in the active SSH configuration:
+
+```text
+PasswordAuthentication yes
+PubkeyAuthentication yes
+UsePAM yes
+```
+
+Back up and inspect included configuration files, then restart SSH and verify connectivity:
+
+```sh
+sudo systemctl restart sshd
+sudo systemctl status sshd
+```
+
+Keep another active SSH session while testing. Incorrect SSH settings can block access.
+
+## Groups
+
+Create a group:
+
+```sh
+sudo groupadd <groupname>
+```
+
+Add a user to a secondary group:
+
+```sh
+sudo usermod -aG <groupname> <username>
+```
+
+Set a user's primary group:
+
+```sh
+sudo usermod -g <groupname> <username>
+```
+
+Remove a user from a group:
+
+```sh
+sudo gpasswd -d <username> <groupname>
+```
+
+A user must belong to at least one group. List membership or available groups with:
+
+```sh
+groups <username>
+getent group
+cat /etc/group
+```
+
+## Add SSH key access
+
+The user generates a key pair on their local machine:
+
+```sh
+ssh-keygen
+```
+
+Send the **public** key to the server administrator. On the server, create or update the user's SSH directory:
+
+```sh
+sudo adduser <username>
+sudo mkdir -p /home/<username>/.ssh
+sudo vi /home/<username>/.ssh/authorized_keys
+sudo chmod 700 /home/<username>/.ssh
+sudo chmod 600 /home/<username>/.ssh/authorized_keys
+sudo chown -R <username>:<username> /home/<username>/.ssh
+```
+
+Never send or store a private key on the server.
+
+## Grant administrative access
+
+Add a user to the `wheel` group on RHEL-based systems:
+
+```sh
+sudo usermod -aG wheel <username>
+```
+
+For passwordless `sudo`, edit the sudoers configuration safely:
+
+```sh
+sudo visudo
+```
+
+Add a dedicated rule, for example:
+
+```text
+krishna ALL=(ALL) NOPASSWD: ALL
+```
+
+Prefer scoped sudo privileges when full passwordless access is not required.
+
+## Create a system account
+
+System accounts do not normally log in or receive a home directory:
+
+```sh
 sudo adduser -r -M -s /sbin/nologin <username>
-
 ```
-
-
-

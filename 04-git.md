@@ -1,54 +1,50 @@
-### Master branch protection:
-* Go to repo >> Settings >> Rulesets >> Rulesets >>  New branch Ruleset 
-    * Provide rulesetname  
-    * Bypass list : Add your required bypassers 
-    * Target Branches : master/main
-    * Branch rules :   
-        * Restrict deletions
-        * Block force pushes
-        * Require pull request reviews before merging
-            * Add minimum number of approvals - 1/2
+# Branch protection
 
-* Branch protection can be done at two levels :
-    * Repository level 
-    * Organization level
+Configure protection for `master` or `main` from **Repository/Organization Settings > Rules > Rulesets**:
 
+- Set a ruleset name.
+- Select the bypass users or teams that are allowed to override rules.
+- Target the `master` and/or `main` branch.
+- Restrict branch deletion.
+- Block force pushes.
+- Require pull request reviews before merging.
+- Set a minimum number of approvals.
 
-* Force push command :
+Branch protection can be configured at repository or organization level.
 
-```
+## Force push
+
+A force push replaces remote history and should be used only with caution:
+
+```sh
 git push origin <branch_name> --force
 git push origin <branch_name> -f
 ```
 
-### Squashing:
-* If you want to combine multiple commits into one commit, you can use the squash option while merging a pull request. This helps in keeping the commit history clean and concise.
+## Squash commits
 
-* Commands to ssquash in local :
+Squashing combines multiple commits into one, keeping the merge history concise.
 
-    ```
-    git rebase -i HEAD~3
-    ```
+To squash the latest three commits interactively:
 
-* The above command will open a file like below. It will show only two commits , beacause we are squsing the second and third commit into the first commit:
+```sh
+git rebase -i HEAD~3
+```
 
-    ```
-    pick def5678 Second commit message
-    pick ghi9012 Third commit message
+The editor may show the following commits:
 
-    ```
+```text
+pick def5678 Second commit
+pick ghi9012 Third commit
+```
 
-    * remove pick and add squash 
+Keep the first commit as `pick` and mark later commits as `squash`:
 
-    ```
-    squash def5678 Second commit message
-    squash ghi9012 Third commit message
-    ```
+```text
+pick def5678 Second commit
+squash ghi9012 Third commit
+```
 
-* Do git log , you will see only one commit with the message of the first commit.
-
-
-
-## Default reviewers for a PR : 
+Save and close the editor. Git will prompt for the final commit message.
 
 

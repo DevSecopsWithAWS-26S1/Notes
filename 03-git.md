@@ -50,4 +50,4 @@ git tag <tagname>
 
 ## Task
 
-In your organization, turn on branch protection for `master`, decide which rules are appropriate, and verify that a direct push is rejected.
+In your organization, enable branch protection for `master`, choose suitable rules, and verify that a direct push is rejected.

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="440" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+<title id="title">Inodes, symbolic links, and hard links</title>
+<desc id="desc">Three panels show a filename pointing to an inode and data, a symbolic link pointing by path to a filename, and two hard link names pointing to the same inode and data.</desc>
+<defs>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#334155"/></marker>
+  <style>
+    text{font-family:Arial,Helvetica,sans-serif;fill:#172033}
+    .panel{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+    .title{font-size:24px;font-weight:700}
+    .label{font-size:18px;font-weight:600}
+    .small{font-size:15px;fill:#475569}
+    .box{fill:#fff;stroke:#64748b;stroke-width:2}
+    .inode{fill:#e0f2fe;stroke:#0284c7}
+    .data{fill:#dcfce7;stroke:#16a34a}
+    .link{fill:#fef3c7;stroke:#d97706}
+    .arrow{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrow)}
+  </style>
+</defs>
+<rect width="1200" height="440" rx="18" fill="#ffffff"/>
+<g transform="translate(20 20)">
+  <rect class="panel" width="370" height="400" rx="16"/>
+  <text class="title" x="24" y="42">1. Regular file</text>
+  <rect class="box" x="25" y="86" width="130" height="64" rx="10"/>
+  <text class="label" x="90" y="125" text-anchor="middle">report.txt</text>
+  <path class="arrow" d="M160 118H205"/>
+  <rect class="inode" x="215" y="86" width="125" height="64" rx="10"/>
+  <text class="label" x="277" y="125" text-anchor="middle">inode 42</text>
+  <path class="arrow" d="M277 160V215"/>
+  <rect class="data" x="95" y="228" width="245" height="64" rx="10"/>
+  <text class="label" x="217" y="267" text-anchor="middle">file data on disk</text>
+  <text class="small" x="25" y="344">Directory name → inode → data</text>
+</g>
+<g transform="translate(415 20)">
+  <rect class="panel" width="370" height="400" rx="16"/>
+  <text class="title" x="24" y="42">2. Symbolic link</text>
+  <rect class="link" x="25" y="86" width="145" height="64" rx="10"/>
+  <text class="label" x="97" y="125" text-anchor="middle">shortcut</text>
+  <path class="arrow" d="M175 118H205"/>
+  <rect class="box" x="215" y="86" width="130" height="64" rx="10"/>
+  <text class="label" x="280" y="125" text-anchor="middle">path string</text>
+  <path class="arrow" d="M280 160V215"/>
+  <rect class="inode" x="215" y="228" width="130" height="64" rx="10"/>
+  <text class="label" x="280" y="267" text-anchor="middle">target inode</text>
+  <text class="small" x="25" y="344">Stores a path; path can break</text>
+</g>
+<g transform="translate(810 20)">
+  <rect class="panel" width="370" height="400" rx="16"/>
+  <text class="title" x="24" y="42">3. Hard links</text>
+  <rect class="box" x="20" y="86" width="130" height="58" rx="10"/>
+  <text class="label" x="85" y="122" text-anchor="middle">report.txt</text>
+  <rect class="box" x="20" y="174" width="130" height="58" rx="10"/>
+  <text class="label" x="85" y="210" text-anchor="middle">report-old</text>
+  <path class="arrow" d="M155 115H205"/>
+  <path class="arrow" d="M155 203L208 150"/>
+  <rect class="inode" x="215" y="112" width="130" height="64" rx="10"/>
+  <text class="label" x="280" y="151" text-anchor="middle">inode 42</text>
+  <path class="arrow" d="M280 185V235"/>
+  <rect class="data" x="165" y="248" width="180" height="58" rx="10"/>
+  <text class="label" x="255" y="284" text-anchor="middle">same data</text>
+  <text class="small" x="20" y="344">Two names → one inode → data</text>
+</g>
+</svg>

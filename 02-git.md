@@ -2,8 +2,8 @@
 
 ## Tasks
 
-- Open a pull request from `dev` to `master` in the Notes repository.
-- Create an organization and a private repository, then grant the requested user access.
+- Open a pull request from `dev` to `master`.
+- Create an organization and a private repository, then grant a team member access.
 
 ## Blame
 
@@ -19,7 +19,7 @@ A fast-forward merge is possible when the target branch has no new commits of it
 
 ## Rebase
 
-`git rebase` replays a branch's commits on top of a new base commit. This can produce a linear history, but it rewrites commit IDs, so coordinate before rebasing commits that others already use.
+`git rebase` moves a branch's commits onto a new base. It creates a linear history but rewrites commit IDs. Do not rebase commits that teammates already share.
 
 ## Cherry-pick
 
@@ -31,7 +31,7 @@ git cherry-pick <commit_hash>
 
 ## Branching strategies
 
-Choose a branching model that fits the team and its release process. Git Flow is one option; it separates feature work, releases, and urgent fixes into defined branch types.
+Choose a branching model that fits the team and release process. Git Flow separates feature work, releases, and urgent fixes into named branch types.
 
 ## Sprints
 

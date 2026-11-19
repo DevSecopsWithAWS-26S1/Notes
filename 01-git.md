@@ -80,4 +80,4 @@ A conflict can occur when branches change the same part of a file and Git cannot
 
 ## Pull requests
 
-A pull request proposes a set of changes for review before they are merged into a shared branch. Teammates can inspect the changes, discuss them, and approve or request updates. GitHub, GitLab, and Bitbucket all support pull requests or equivalent review workflows.
+A pull request (PR) proposes changes for review before they are merged into a shared branch. Reviewers can inspect the changes, discuss them, and approve or request updates.
