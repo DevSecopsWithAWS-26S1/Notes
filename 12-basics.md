@@ -201,4 +201,62 @@ Important precautions
 - Ensure the EBS volume and EC2 instance are in the same Availability Zone.
 - Test `/etc/fstab` with `mount -a` before rebooting.
 
-Result: Your RHEL 9 server will have a separate 20 GB EBS volume mounted at `/data`, and it will remain mounted after a reboot.
+
+To delete a partition in RHEL 9, use `fdisk`.
+
+### Step 1. Identify the disk and partition
+
+```
+lsblk
+```
+
+Example:
+
+```
+nvme1n1       20G disk
+└─nvme1n1p1   20G part /data
+```
+
+### Step 2. Unmount the partition
+
+If mounted:
+
+```
+sudo umount /data
+```
+
+### Step 3. Open fdisk
+
+```
+sudo fdisk /dev/nvme1n1
+```
+
+### Step 4. Delete the partition
+
+Inside fdisk:
+
+```
+p       # Print partition table
+d       # Delete partition
+1       # Select partition number
+p       # Verify partition deletion
+w       # Save changes
+```
+
+### Step 5. Refresh and verify
+
+```
+sudo partprobe /dev/nvme1n1
+lsblk
+```
+
+Partition deleted
+
+Important:
+
+- `d` deletes the partition entry, not the entire EBS volume.
+- Data on that partition becomes inaccessible.
+- Remove its `/etc/fstab` entry if you previously configured a permanent mount.
+- Make sure you're operating on the new disk `/dev/nvme1n1`, never your root disk `/dev/nvme0n1`.
+
+If you want to reuse the disk, you can create a new partition and format it again.
