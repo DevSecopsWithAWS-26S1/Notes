@@ -1,31 +1,29 @@
-* DNS propagation.
+# ExpenseTracker
 
-## Type of records:
-* A  - route trafffic to ipv4 
-* AAAA - route traffic to ipv6 
-* CNAME - route domain to another domain or AWS service 
-* MX - mailing records 
-* TXT - key:value 
-* TTL - Time to live - It decides how much a cache can be used on the ISP DNS servers 
+## DNS records
 
-## ExpenseTracker application:
-### nginx 
-* It is popular web server which can hosts html,csss,.js . It is popular for reverse proxy 
-* logs path - /var/log/nginx 
+| Record | Purpose |
+|---|---|
+| A | Routes a domain to an IPv4 address |
+| AAAA | Routes a domain to an IPv6 address |
+| CNAME | Routes a domain to another domain or AWS service |
+| MX | Routes email to mail servers |
+| TXT | Stores text data such as verification or configuration values |
 
-### nodejs 
-* It is designed on nodejs 
-* logs  - journalctl -u backend
+TTL controls how long DNS servers may cache a record.
+DNS changes may take time to propagate.
 
-### mysql - database 
-* SQL - Structured Query Language 
-* SQL - Schemas >>  tables >> rows and colums 
-* logs - journalctl -u mysqld
-* logs path - /var/log/mysql 
+## Application components
 
-## http methods & status code 
+| Component | Purpose | Logs |
+|---|---|---|
+| Nginx | Serves the frontend and acts as a reverse proxy | `/var/log/nginx/` |
+| Node.js backend | Runs the application API | `journalctl -u backend` |
+| MySQL | Stores application data | `journalctl -u mysqld` and `/var/log/mysql/` |
 
-& http methods :
+SQL organizes data with schemas, tables, rows, and columns.
+
+## HTTP methods
 
 | HTTP Method | Description |
 | :--- | :--- |
@@ -67,48 +65,65 @@
 
 
 
-### Task:
-* Setup Expense tracker and try to fix the issues 
+## Task
 
+Set up the ExpenseTracker application and troubleshoot all reported issues.
 
-### Troubleshooting :
-* file permissins issue / ownership issue  >>   /var/log/nginx/error.log 
+## Troubleshooting
 
-* check the mysqld service and logs 
-    * systemctl status mysqld - service check 
-    * journalctl -u mysqld 
-    * /var/log/mysql/mysqld.log
-    * /var/log/mysql/mysql.log
-    * netstat -lntp 
-    * firewall SG is allowed or not . (All allow)
-    * check the mqsql server is configured with correct password 
-        * for both root and expense users 
-    * Check whether the transactions DB is available &  table is available 
+Check Nginx file permissions and ownership:
 
-* check the backend service and logs 
-    * systemctl service backend 
-    * journactl -u backend 
-    * /var/log/messages 
-    * netstat -lntp
-    * firewall SG is allowed or not . (All allow)
-    * /app 
-    * code is deployed proper 
-    * backend service configuration - /etc/systemd/system/backend.service
-        * whether we provided correct mysql ip address & password 
-        * running command for the backend - /bin/node /app/index.js
+```bash
+sudo journalctl -u nginx
+sudo tail -f /var/log/nginx/error.log
+```
 
+Check MySQL:
 
-* check the frontend service and logs
-    * systemctl status nginx 
-    * journalctl -u nginx 
-    * /var/log/nginx/access.log 
-    * /var/log/nginx/error.log 
-    * reverse proxy configuration -/etc/nginx/default.d/expense.conf
-        * check the backend ip is proper provided
-    * /user/share/nginx/html - default files removed or not 
-    * Verify whther frontend code is properly deployed 
-    * folder permissions and ownership permissions 
+```bash
+sudo systemctl status mysqld
+sudo journalctl -u mysqld
+sudo tail -f /var/log/mysql/mysqld.log
+sudo tail -f /var/log/mysql/mysql.log
+sudo ss -lntp
+```
 
+Verify:
 
-## subdomains :
-* you can create subdomains to a main domain in hosted zone 
+- The MySQL security group allows the required application traffic.
+- The server has the correct password for `root` and `expense`.
+- The `transactions` database and required tables exist.
+
+Check the Node.js backend:
+
+```bash
+sudo systemctl status backend
+sudo journalctl -u backend
+sudo tail -f /var/log/messages
+sudo ss -lntp
+```
+
+Verify:
+
+- `/app` contains the deployed code.
+- `/etc/systemd/system/backend.service` has the correct database IP and password.
+- The backend service runs `/bin/node /app/index.js`.
+
+Check the frontend:
+
+```bash
+sudo systemctl status nginx
+sudo journalctl -u nginx
+sudo tail -f /var/log/nginx/access.log
+sudo tail -f /var/log/nginx/error.log
+```
+
+Verify:
+
+- `/etc/nginx/default.d/expense.conf` points to the correct backend IP.
+- `/usr/share/nginx/html` contains the deployed frontend files.
+- Folder permissions and ownership allow Nginx to read the files.
+
+## Subdomains
+
+You can create subdomains of a main domain in its Route 53 hosted zone.

@@ -41,8 +41,8 @@ Use `vi` or `vim` to update file content.
 * :q - Quit the editor without saving the changes
 * :wq - Save the changes and quit the editor
 
-* :q! - Quit the editor without saving the changes (force quit)
-* wq! - Save the changes and quit the editor (force save and quit)
+* `:q!` - Quit the editor without saving the changes (force quit)
+* `:w!` - Save the file without quitting
 
 * :s/<Search>/<Replace>/g - Search and replace a specific word in the file
 * :s/<Search>/<Replace>/gc - Search and replace a specific word in the file with confirmation for each replacement

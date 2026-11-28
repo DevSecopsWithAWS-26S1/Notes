@@ -1,166 +1,114 @@
-# Scripting:
-* coding is developing the application
-* scripting is automating the daily / repetetive activities. 
+# Shell scripting
 
-* Native linux - shell scripting 
-* python for scripting 
+Shell scripting stores Linux commands in a `.sh` file and runs them in sequence.
 
+| Tool | Extension |
+|---|---|
+| Shell | `.sh` |
+| Python | `.py` |
+| JavaScript | `.js` |
+| Java | `.java` |
 
-* nodejs - .js 
-* pyhton - .py
-* java - .java 
-* html - .html
-* shell - .sh 
+## Hello world
 
-* In simple words , shell scripting in listing your linux commands in a file of extension .sh and run it .
+Create `hello.sh`:
 
-* touch test.sh
-
-* #! - shebang and helps your script to tell which interpreter you are using 
-* /bin/sh  
-* /bin/bash 
-
-* 1-helloworld.sh 
-
-```
-#! /bin/bash
-echo "Helloworld"
-```
-* run the script 
-```
-./1-helloworld.sh
-/bin/bash 1-helloworld.sh
+```bash
+#!/bin/bash
+echo "Hello world"
 ```
 
-* 2-discussion.sh :
+Run it:
 
-```
-#! /bin/bash
-echo "Krishna : Hi Teja , How are you ?"
-echo "Teja : Hi Krishna , I'm good . How about you ? "
-echo "Krishna : Thanks for aksing . I'm good too."
-```
+```bash
+chmod +x hello.sh
+./hello.sh
 
-* 3-variables.sh
-
-```
-#! /bin/bash
-person1=krishna
-person2=Teja
-echo "$person1 : Hi $person2 , How are you ?"
-echo "$person2 : Hi $person1 , I'm good . How about you ? "
-echo "$person1 : Thanks for aksing . I'm good too."
-
-
-# DRY - Do not repeat yourself 
-# variable 
-# syntax : variabalename=variablevalue
-# call : $variablename
+# Or run it without executable permissions
+bash hello.sh
 ```
 
+`#!` is the shebang. It tells the operating system which interpreter to use.
 
-* 4-arguments.sh
+## Variables
 
+```bash
+#!/bin/bash
+person1="Krishna"
+person2="Teja"
+
+echo "$person1: Hi $person2"
+echo "$person2: Hi $person1"
 ```
-#! /bin/bash
+
+Syntax:
+
+```bash
+variable_name="value"
+echo "$variable_name"
+```
+
+## Command arguments
+
+Arguments passed when a script runs are available as `$1`, `$2`, and so on.
+
+```bash
+#!/bin/bash
 person1=$1
 person2=$2
-echo "$person1 : Hi $person2 , How are you ?"
-echo "$person2 : Hi $person1 , I'm good . How about you ? "
-echo "$person1 : Thanks for aksing . I'm good too."
 
-
-# DRY - Do not repeat yourself 
-# arguments  
-# syntax : person1=$1 , person2=$2
-# Pass the value to the argument while running script : ./4-arguments.sh Elonmusk trumph 
+echo "$person1: Hi $person2"
+echo "$person2: Hi $person1"
 ```
 
-* Adding two numbers :
-
-    * Algorithm:
-    ```
-    number1=10
-    number2=20
-    sum=number1+number2
-    ```
-    * scripting: 5-add.sh
-
-    ```
-    number1=10 
-    number2=20
-    sum=$(($number1 + $number2))
-    echo " The sum of $number1 * $number2 is : $sum "
-    ```
-* 5-add.sh
+```bash
+./arguments.sh Krishna Teja
 ```
-#! /bin/bash 
+
+## Arithmetic
+
+```bash
+#!/bin/bash
 number1=10
 number2=20
-sum=$(($number1 + $number2))
-echo "The sum of $number1 &  $number2 is : $sum "
+sum=$((number1 + number2))
+
+echo "The sum of $number1 and $number2 is $sum"
 ```
 
-* 6-read.sh
-```
-#! /bin/bash 
-echo "This script will add two numbers. Please provide the value below "
-echo "Please enter Number1 value:"
-read -s Number1
-echo "Please enter Number2 value:"
-read -s Number2
-sum=$(($Number1 + $Number2))
-echo "The sum of $Number1 &  $Number2 is : $sum"
+## Read user input
 
-# Hide user input : read -s 
-```
+```bash
+#!/bin/bash
+echo "Enter Number 1:"
+read number1
 
-* 7-userauth.sh
+echo "Enter Number 2:"
+read number2
 
-```
-#! /bin/bash 
-echo "Username: "
-read Username
-echo "Password: "
-read -s Password 
-echo "User input values are $Username & $Password"
+sum=$((number1 + number2))
+echo "The sum is $sum"
 ```
 
-## Data types :
-1.String 
-```
-person1=krishna
-```
-2.Integer
-```
-number1=10
-```
-3.Array
-```
-fruits=("banana","apple","mango")
-```
-4.Boolean
-```
-True/False
+Use `read -s` to hide input, for example when reading a password.
+
+```bash
+echo "Password:"
+read -s password
 ```
 
-* In shell scripting no need to defins the data data 
-```
-int var=4
-string name=teja 
-array fruits = 
-```
+## Bash data types
 
-# Bash Data Types
+Bash variables do not require explicit type declarations.
 
-| Data type | What it stores | Example |
-|---|---|---|
-| String | Text | `name="Sam"` |
-| Integer | A whole number | `age=20` |
-| Array | A list of values | `colors=("red" "blue")` |
-| Boolean | True or false, usually stored as text | `is_ready=true` |
+| Data type | Example |
+|---|---|
+| String | `name="Sam"` |
+| Integer | `age=20` |
+| Array | `colors=("red" "blue")` |
+| Boolean-style value | `is_ready=true` |
 
-## Using the Values
+Access values:
 
 ```bash
 echo "$name"

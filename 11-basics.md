@@ -316,4 +316,4 @@ nslookup google.com
 
 DNS resolution finds an address; it does not by itself confirm that the server or website is reachable.
 
-![DNSPropogation](./Images/basics7.png)
+![DNS propagation](./Images/basics7.png)
