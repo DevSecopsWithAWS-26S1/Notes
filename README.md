@@ -1,4 +1,4 @@
-# DevSecOps Notes
+# DevSecOps AWS Notes
 
 This repository contains daily learning notes from DevSecOps and AWS sessions.
 The notes are rough, practical references written while topics are being explained.
